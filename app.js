@@ -23,13 +23,13 @@ app.listen(PORT, () => {
 
 // Gracefully handle uncaught exceptions
 process.on("uncaughtException", (err) => {
-  console.log(`UNCAUGHT EXCEPTION: ${JSON.stringify(err)}`);
+  console.log(`UNCAUGHT EXCEPTION: ${err}`);
   process.exit(1);
 });
 
 // Gracefully handle unhandled promise rejections
 process.on("unhandledRejection", (err) => {
-  console.log(`UNCAUGHT REJECTION: ${JSON.stringify(err)}`);
+  console.log(`UNCAUGHT REJECTION: ${err}`);
 
   server.close(() => {
     process.exit(1);
