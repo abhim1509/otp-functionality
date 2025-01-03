@@ -3,7 +3,6 @@ import { Otp } from "../models/otp.model.js";
 
 export const generateOTP = async (req, res) => {
   // Route to create a new user
-  // app.post("/otp", emailRateLimiter, async (req, res) => {
   try {
     const { email } = req.body;
     const newOtp = await Otp.findOneAndUpdate({
@@ -16,7 +15,6 @@ export const generateOTP = async (req, res) => {
       .status(400)
       .json({ message: "Error creating user", error: err.message });
   }
-  // });
 };
 
 export const verifyOTP = async (req, res) => {
@@ -27,7 +25,7 @@ export const verifyOTP = async (req, res) => {
       otp,
       expiresAt: { $gte: new Date(new Date() - 30000) },
     });
-    console.log({ validOtp });
+
     if (!validOtp || !validOtp.length) {
       return res.status(200).json({ message: "OTP not verified." });
     }
@@ -38,6 +36,3 @@ export const verifyOTP = async (req, res) => {
       .json({ message: "Error creating user", error: err.message });
   }
 };
-// app.post("/otp-verify", async (req, res) => {
-
-// });
