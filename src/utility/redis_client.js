@@ -4,3 +4,8 @@ export const redisClient = new Redis({
   host: process.env.REDIS_HOST || "localhost",
   port: process.env.REDIS_PORT || 6379,
 });
+
+export const closeRedis = async () => {
+  await redisClient.quit();
+  console.log("Disconnected from Redis");
+};

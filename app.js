@@ -1,6 +1,7 @@
 import express from "express";
 import { initializeDb } from "./src/utility/db_connectivity.js";
 import router from "./routes.js";
+import { gracefulShutdown } from "./src/utility/shutdown.js";
 
 initializeDb();
 // Initialize Express app
@@ -24,14 +25,15 @@ app.listen(PORT, () => {
 // Gracefully handle uncaught exceptions
 process.on("uncaughtException", (err) => {
   console.log(`UNCAUGHT EXCEPTION: ${err}`);
-  process.exit(1);
+  gracefulShutdown();
 });
 
 // Gracefully handle unhandled promise rejections
 process.on("unhandledRejection", (err) => {
   console.log(`UNCAUGHT REJECTION: ${err}`);
-
-  server.close(() => {
-    process.exit(1);
-  });
+  gracefulShutdown();
 });
+
+// Listen for termination signals
+process.on("SIGTERM", gracefulShutdown);
+process.on("SIGINT", gracefulShutdown);

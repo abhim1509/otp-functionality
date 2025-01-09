@@ -37,3 +37,8 @@ export const initializeDb = () => {
     }
   );
 };
+
+export const closeDb = async () => {
+  await mongoose.connection.close();
+  console.log("Disconnected from MongoDB");
+};
