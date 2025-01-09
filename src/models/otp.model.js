@@ -4,7 +4,7 @@ const OtpSchema = new mongoose.Schema({
   otp: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   expiresAt: { type: Date, default: Date.now, expires: 30 }, //TTL index of 30 seconds.
-  maxAttempts: { type: Number, default: 0 },
+  attempts: { type: Number, default: 0 },
 });
 
 export const Otp = mongoose.model("otp", OtpSchema);

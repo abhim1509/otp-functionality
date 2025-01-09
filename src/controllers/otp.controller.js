@@ -39,9 +39,9 @@ export const verifyOTP = async (req, res) => {
       return res.status(404).json({ message: "OTP not found" });
     }
 
-    otpResponse.maxAttempts += 1;
+    otpResponse.attempts += 1;
 
-    if (maxAttempts > 3) {
+    if (attempts > 3) {
       return res.status(429).json({ message: "Maximum attempts reached." });
     }
 
